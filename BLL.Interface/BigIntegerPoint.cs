@@ -5,6 +5,7 @@ namespace BLL.Interface
     public struct BigIntegerPoint
     {
         public BigInteger X { get; set; }
+
         public BigInteger Y { get; set; }
 
         public BigIntegerPoint(BigInteger x, BigInteger y)

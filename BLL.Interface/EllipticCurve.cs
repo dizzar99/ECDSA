@@ -23,6 +23,7 @@ namespace BLL.Interface
 
         // Curve coefficients.
         public BigInteger A { get; } = BigInteger.Parse("0", System.Globalization.NumberStyles.HexNumber);
+
         public BigInteger B { get; } = BigInteger.Parse("07", System.Globalization.NumberStyles.HexNumber);
 
         // Base point.
@@ -59,7 +60,7 @@ namespace BLL.Interface
         {
             if (EllipticCurveHelpers.MathMod(k, this.N) == 0 || point.IsEmpty())
             {
-                return point;
+                return BigIntegerPoint.GetEmpty();
             }
 
             if (k < 0)
@@ -138,7 +139,8 @@ namespace BLL.Interface
         {
             if (k == 0)
             {
-                throw new DivideByZeroException(nameof(k));
+                return BigInteger.Zero;
+                //throw new DivideByZeroException(nameof(k));
             }
 
             if (k < 0)
@@ -148,10 +150,10 @@ namespace BLL.Interface
 
             (BigInteger gcd, BigInteger x, BigInteger y) result = EllipticCurveHelpers.ExtendedGcd(p, k);
 
-            //if (result.gcd != 1)
-            //{
-            //    throw new ArgumentException("Gcd is not 1");
-            //}
+            if (result.gcd != 1)
+            {
+                throw new ArgumentException("Gcd is not 1");
+            }
 
             if (EllipticCurveHelpers.MathMod(k * result.x, p) != 1)
             {
@@ -196,6 +198,11 @@ namespace BLL.Interface
             BigInteger y = point.Y;
 
             return EllipticCurveHelpers.MathMod(y * y - x * x * x - this.A * x - this.B, this.P) == 0;
+        }
+
+        public override string ToString()
+        {
+            return $"y^2 = x^3 + {this.A}x + {this.B}";
         }
     }
 }
