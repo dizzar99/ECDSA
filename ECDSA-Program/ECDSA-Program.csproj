@@ -1,12 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.7.82" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DependencyResolver\DependencyResolver.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="application.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <PropertyGroup>
